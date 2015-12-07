@@ -1,18 +1,18 @@
 // ==UserScript==
 // @name        esl-wot-admin-leaguewizard-7-script
 // @namespace   ESL.Wasteful
-// @description Sets all best_of and maps when building bracket
+// @description Sets all best_of and maps when building bracket in 5on5 and 7on7 cups with BAPI
 // @include     http://play.eslgaming.com/worldoftanks/*/admin_leaguewizard/7/
-// @version     1.2
+// @version     1.21
 // @grant       none
 // ==/UserScript==
 /**
  * Created by Wasteful.
- * Last update: 07.12.2015. (trigger only on 7on7 cup)
+ * Last update: 07.12.2015. (trigger only on 7on7 and 5on5 cups)
  * Config: current setup is go4wot, edit bestOf_* variables if you have different cup setup
  */
 
-var is7on7 = window.location.href.indexOf("test-cup-script") > 0 || window.location.href.indexOf("go4wot") > 0 || window.location.href.indexOf("7on7") > 0;
+var is7on7 = window.location.href.indexOf("test-cup-script") > 0 || window.location.href.indexOf("go4wot") > 0 || window.location.href.indexOf("7on7") > 0 || window.location.href.indexOf("5on5") > 0;
 
 if(is7on7){
     var bestOf_BeforeFinals = 3, bestOf_finals = 5; //Edit these if needed
