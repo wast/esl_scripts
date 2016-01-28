@@ -42,7 +42,7 @@ $(document).ready(function() {
         cupName = title.substring(0, title.indexOf("  "));
         region = cupName.substring(cupName.lastIndexOf(" "), cupName.length);
         cupName = cupName.substring(0, cupName.indexOf(region));
-        fileName = region.trim() + " - " + cupName.trim() + " - " + today + " - # teams - # participants.csv";
+        fileName = region.trim() + " - " + cupName.trim() + " - " + today + ".csv";
     } else {
         alert("You aren't in the cup navnode.");
     }
