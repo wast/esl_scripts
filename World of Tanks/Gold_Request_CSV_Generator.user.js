@@ -3,7 +3,7 @@
 // @namespace   ESL.Wasteful
 // @description Gold Request CSV Generator
 // @include     http://play.eslgaming.com/worldoftanks/europe/wot/*/admin_qrydatabase/showqry
-// @version     1.4
+// @version     1.41
 // @grant       none
 // ==/UserScript==
 
@@ -259,7 +259,7 @@ window.fillTextArea = function(){
     $("#goldInput").val($("#tierLevel").val());
 }
 
-var today = function(){
+function today(){
 	var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; //January is 0!
