@@ -3,7 +3,7 @@
 // @namespace   ESL.Wasteful
 // @description Gold Request CSV Generator
 // @include     http://play.eslgaming.com/worldoftanks/europe/wot/*/admin_qrydatabase/showqry
-// @version     1.41
+// @version     1.42
 // @grant       none
 // ==/UserScript==
 
@@ -73,7 +73,7 @@ $(document).ready(function() {
         '7on7 Tier 5 (48-63 teams)': '31500\n21000\n17500\n14000\n10500\n7000\n5250',
         '7on7 Tier 6 (64-127 teams)': '35000\n24500\n17500\n14000\n10500\n7000\n5250\n3500',
         'Go4WoT': go4wotGold
-    }
+    };
     var s = $('<select/>', {
         id: 'tierLevel',
         onchange: 'fillTextArea()'
@@ -257,7 +257,7 @@ var download = function(content, fileName, mimeType) {
 
 window.fillTextArea = function(){
     $("#goldInput").val($("#tierLevel").val());
-}
+};
 
 function today(){
 	var today = new Date();
@@ -265,10 +265,10 @@ function today(){
     var mm = today.getMonth() + 1; //January is 0!
     var yyyy = today.getFullYear();
     if (dd < 10) {
-        dd = '0' + dd
+        dd = '0' + dd;
     }
     if (mm < 10) {
-        mm = '0' + mm
+        mm = '0' + mm;
     }
 	return dd + '.' + mm + '.' + yyyy;
 }
