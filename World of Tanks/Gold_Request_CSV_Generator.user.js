@@ -20,9 +20,7 @@
 * If there are less then XonX players in lineup, they are not added to list.
 *
 */
-
-$(document).ready(function() {  
-    var parent = $("table").first().parent(),
+var parent = $("table").first().parent(),
 	$div = $('<div/>'),
 	cupName = "",
 	fileName = "",
@@ -30,6 +28,7 @@ $(document).ready(function() {
 	title = $('h4.title').html(),
 	isGo4WoT = false,
 	go4wotGold = '0\n0\n0\n0\n0\n10500\n7000\n5250\n3500';
+$(document).ready(function() {  
     if (title.length > 10) {
         cupName = title.substring(0, title.indexOf("  "));
 		if(cupName.indexOf("Adria Open") > 0){
