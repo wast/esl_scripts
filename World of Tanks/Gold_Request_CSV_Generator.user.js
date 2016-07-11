@@ -22,7 +22,7 @@
 */
 
 $(document).ready(function() {  
-    parent = $("table").first().parent(),
+    var parent = $("table").first().parent(),
 	$div = $('<div/>'),
 	cupName = "",
 	fileName = "",
@@ -81,7 +81,7 @@ $(document).ready(function() {
     for(var val in selectTeamPrize) {
         $('<option />', {value: selectTeamPrize[val], text: val}).appendTo(s);
     }
-    s.appendTo($div)
+    s.appendTo($div);
 
     $('<input/>', {
         type: 'text',
@@ -166,7 +166,7 @@ window.getWoTCSV = function() {
                  team: $td.eq(1).text(),
                  team_name: $td.eq(2).text(),
                  ga2: $td.eq(6).text()
-               }
+               };
     }).get();
     tbl.shift();
     tbl.pop();
@@ -224,7 +224,7 @@ window.getWoTCSV = function() {
 		csvContent += index < data.length ? dataString + '\n' : dataString;
 	});
 	download(csvContent, finalFileName, 'text/csv');
-}
+};
 
 //download csv script
 var download = function(content, fileName, mimeType) {
@@ -253,7 +253,7 @@ var download = function(content, fileName, mimeType) {
         }, 333);
         return true;
     }
-}
+};
 
 window.fillTextArea = function(){
     $("#goldInput").val($("#tierLevel").val());
