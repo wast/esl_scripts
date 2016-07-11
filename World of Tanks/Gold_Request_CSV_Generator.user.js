@@ -3,7 +3,7 @@
 // @namespace   ESL.Wasteful
 // @description Gold Request CSV Generator
 // @include     http://play.eslgaming.com/worldoftanks/europe/wot/*/admin_qrydatabase/showqry
-// @version     1.42
+// @version     1.43
 // @grant       none
 // ==/UserScript==
 
@@ -185,7 +185,7 @@ window.getWoTCSV = function() {
     tbl.forEach(function(el, index, array){
         if(el["ga2"].match(/^\d{9}$/) && spectators.indexOf(el["ga2"]) === -1 ){
             teamSize = counts[place[y]];
-            if(is7on7 && teamSize < 7) {
+            if((is7on7 || isGo4WoT ) && teamSize < 7) {
                 teamSize = 7;
 				return true;
 			} else if(is5on5 && teamSize < 5) {
