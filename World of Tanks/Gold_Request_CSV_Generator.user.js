@@ -2,8 +2,8 @@
 // @name        Gold Request CSV Generator
 // @namespace   ESL.Wasteful
 // @description Gold Request CSV Generator
-// @include     http://play.eslgaming.com/worldoftanks/europe/wot/*/admin_qrydatabase/showqry
-// @version     1.44
+// @include     *://play.eslgaming.com/worldoftanks/europe/wot/*/admin_qrydatabase/showqry
+// @version     1.45
 // @grant       none
 // ==/UserScript==
 
