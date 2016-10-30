@@ -2,8 +2,8 @@
 // @name        esl-wot-admin-leaguewizard-7-script
 // @namespace   ESL.Wasteful
 // @description Sets all best_of and maps when building bracket in 5on5 and 7on7 cups with BAPI
-// @include     http://play.eslgaming.com/worldoftanks/*/admin_leaguewizard/7/
-// @version     1.22
+// @include     *://play.eslgaming.com/worldoftanks/*/admin_leaguewizard/7/
+// @version     1.23
 // @grant       none
 // ==/UserScript==
 /**
