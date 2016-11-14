@@ -3,7 +3,8 @@
 // @namespace   ESL.Wasteful
 // @description Gold Request CSV Generator
 // @include     *://play.eslgaming.com/worldoftanks/europe/wot/*/admin_qrydatabase/showqry
-// @version     1.50
+// @downloadURL	https://github.com/wast/esl_scripts/raw/master/World%20of%20Tanks/Gold_Request_CSV_Generator.user.js
+// @version     1.51
 // @grant       none
 // ==/UserScript==
 
@@ -14,8 +15,7 @@
 * enter data, click button, enter file name, enter prizes and click the button.
 * Now download file and enjoy.
 *
-* The script automatically generate full csv. It excludes known ESL spectator gameaccounts WG_Spectator_1, WG_Spectator_2, WG_Spectator_3,
-* WG_Spectator_4, WG_Spectator_5, ESL_CAST3 and ESL_CAST4.
+* The script automatically generate full csv. It excludes known ESL spectator gameaccounts.
 * If there are less then XonX players in lineup, they are not added to list.
 *
 */
@@ -48,14 +48,11 @@ $(document).ready(function() {
     }).appendTo($div);
 
     var selectTeamPrize = {
-        'Choose 7on7 Tier': '',
-        '7on7 Tier 0 (4-7 teams)': '10500\n8750\n7000',
-        '7on7 Tier 1 (8-15 teams)': '14000\n10500\n8750\n7000',
-        '7on7 Tier 2 (16-23 teams)': '17500\n14000\n12250\n8750\n5250',
-        '7on7 Tier 3 (24-31 teams)': '21000\n17500\n14000\n10500\n5250\n3500',
-        '7on7 Tier 4 (32-47 teams)': '24500\n21000\n17500\n12250\n8750\n5250',
-        '7on7 Tier 5 (48-63 teams)': '31500\n21000\n17500\n14000\n10500\n7000\n5250',
-        '7on7 Tier 6 (64-127 teams)': '35000\n24500\n17500\n14000\n10500\n7000\n5250\n3500',
+        'Choose distribution': '',
+	'yolo Gold' : '25000\n17500\n12500\n10000\n7500\n5000\n3750\n',
+	'ace Gold' : '13500\n9000\n6000\n3750\n2250\n1350\n750',
+	'clash Gold' : '6000\n4000\n3500\n2500\n1500\n1000\n700\n400',
+	'duel Gold' : '2500\n1750\n1250\n1000\n600\n400\n250\n150',
         'Go4WoT': go4wotGold
     };
     var s = $('<select/>', {
@@ -134,7 +131,7 @@ window.getWoTCSV = function() {
 	}
 
     //taken from https://docs.google.com/spreadsheets/d/10ongM5OGeYBJZ-hdVLwll4uk6M50lZ51iZErcB5qoT0/edit#gid=1241858415
-    var spectators = ['530845699','530845705','530845706','505580220','505580246','530845702','530845701','530845707','530845703','530845700','530845708','530845709','530845710','530845711','530845712','530845713','530845714','539269868','539269869','539269870','539269871','539269872','539269875','539269876','539269877','539269878','539269879'];
+    var spectators = ['539269868','539269869','539269870','539269871','539269872','539269875','539269876','539269877','539269878','539269879','530845699','530845705','530845706','505580220','505580246','530845702','530845701','530845707','530845703','530845700','530845708','530845709','530845710','530845711','530845712','530845713','530845714','539269868','539269869','539269870','539269871','539269872','539269875','539269876','539269877','539269878','539269879'];
     var tbl = $('tr:has(td)').map(function(i, v) {
         var $td =  $('td', this);
         return {
@@ -147,10 +144,9 @@ window.getWoTCSV = function() {
     tbl.shift();
     tbl.pop();
     tbl.forEach(function(el, index, array){
-        if(el["ga2"].match(/^\d{9}$/) && spectators.indexOf(el["ga2"]) === -1 ){
+        if(el.ga2.match(/^\d{9}$/) && spectators.indexOf(el.ga2) === -1 ){
             place.push(el["finish"]);
         }
-        // el["finish"] el["ga2"]
     });
 
     var counts = {}; //how many players per team?
@@ -160,11 +156,11 @@ window.getWoTCSV = function() {
     }
     var y = 0;
     tbl.forEach(function(el, index, array){
-        if(el["ga2"].match(/^\d{9}$/) && spectators.indexOf(el["ga2"]) === -1 ){
+        if(el.ga2.match(/^\d{9}$/) && spectators.indexOf(el.ga2) === -1 ){
             teamSize = counts[place[y]];
             if(teamSize >= x){
                prize = Math.floor(prizesReal[place[y] - 1] / teamSize); //calculate prize per player
-               if(prize > 0) column.push([el["ga2"], prize]);
+               if(prize > 0) column.push([el.ga2, prize]);
             }
             y++;
         }
