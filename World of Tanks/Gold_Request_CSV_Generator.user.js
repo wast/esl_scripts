@@ -3,16 +3,15 @@
 // @namespace   ESL.Wasteful
 // @description Gold Request CSV Generator
 // @include     *://play.eslgaming.com/worldoftanks/europe/wot/*/admin_qrydatabase/showqry
-// @version     1.45
+// @version     1.5
 // @grant       none
 // ==/UserScript==
 
 /* @author wasteful@staff.eslgaming.com
-* Script is active whenever you visit admin_qrydatabase/showqry. It generates filename for purpose of National Cups by reading website title. You just need
-* to enter number of teams and participants.
+* Script is active whenever you visit admin_qrydatabase/showqry. 
 *
 * How To Use? Go to the cup page, go to admin_command, copy League ID, go to Query Database, choose "WoT Gold" (v),
-* enter data, click button, fix file name if needed, enter prizes and click the button.
+* enter data, click button, enter file name, enter prizes and click the button.
 * Now download file and enjoy.
 *
 * The script automatically generate full csv. It excludes known ESL spectator gameaccounts WG_Spectator_1, WG_Spectator_2, WG_Spectator_3,
@@ -22,31 +21,17 @@
 */
 var parent = $("table").first().parent(),
 	$div = $('<div/>'),
-	cupName = "",
-	fileName = "",
-	region = "",
-	title = $('h4.title').html(),
-	isGo4WoT = false,
+	fileName = "cupname "+today()+".csv",
+	url = window.location.href,
+	xonxPattern = /\don\d/,
+	xonx = xonxPattern.exec(url),
+	isGo4WoT = url.indexOf("go4wot") > 0,
 	go4wotGold = '0\n0\n0\n0\n0\n10500\n7000\n5250\n3500';
 $(document).ready(function() {  
-    if (title.length > 10) {
-        cupName = title.substring(0, title.indexOf("  "));
-		if(cupName.indexOf("Adria Open") > 0){
-			region = "Adria";
-			fileName = region + " - " + cupName.trim() + " - " + today() + ".csv";
-		} else if(cupName.indexOf("Go4WoT") < 0){
-			region = cupName.substring(cupName.lastIndexOf(" "), cupName.length);
-			var match      = cupName.match(/\d/gi);
-			var lastIndex  = cupName.lastIndexOf(match[match.length-1]);
-			region = cupName.substring(lastIndex+1, cupName.length);
-			cupName = cupName.substring(0, cupName.indexOf(region));
-			fileName = region.trim() + " - " + cupName.trim() + " - " + today() + ".csv";
-		} else {
-			fileName = "Europe - " + cupName.replace("Europe ", "") + " - " + today() + ".csv";
-			isGo4WoT = true;
-		}     
+    if (xonx) {
+        x = xonx[0].substring(0, 1);  
     } else {
-        alert("You aren't in the cup navnode.");
+		x = 7;
     }
     $('<input/>', {
         type: 'text',
@@ -148,14 +133,6 @@ window.getWoTCSV = function() {
 	    }
 	}
 
-    var is3on3 = is5on5 = is7on7 = false;
-    if($('#fileNameInput').val().indexOf("7on7") >= 0 || isGo4WoT){ // if tierlevel is chosen, then the cup is 7on7 :)
-        is7on7 = true;
-    } else if($('#fileNameInput').val().indexOf("3on3") >= 0){ // if filename contains 3on3, then the cup is 3on3 :)
-        is3on3 = true;
-    } else if($('#fileNameInput').val().indexOf("5on5") >= 0){ // if filename contains 5on5, then the cup is 5on5 :)
-        is5on5 = true;
-	}
     //taken from https://docs.google.com/spreadsheets/d/10ongM5OGeYBJZ-hdVLwll4uk6M50lZ51iZErcB5qoT0/edit#gid=1241858415
     var spectators = ['530845699','530845705','530845706','505580220','505580246','530845702','530845701','530845707','530845703','530845700','530845708','530845709','530845710','530845711','530845712','530845713','530845714','539269868','539269869','539269870','539269871','539269872','539269875','539269876','539269877','539269878','539269879'];
     var tbl = $('tr:has(td)').map(function(i, v) {
@@ -185,9 +162,7 @@ window.getWoTCSV = function() {
     tbl.forEach(function(el, index, array){
         if(el["ga2"].match(/^\d{9}$/) && spectators.indexOf(el["ga2"]) === -1 ){
             teamSize = counts[place[y]];
-            if(((is7on7 || isGo4WoT )    && teamSize >= 7)
-                           || (is5on5    && teamSize >= 5)
-                           || (is3on3    && teamSize >= 3)) {
+            if(teamSize >= x){
                prize = Math.floor(prizesReal[place[y] - 1] / teamSize); //calculate prize per player
                if(prize > 0) column.push([el["ga2"], prize]);
             }
