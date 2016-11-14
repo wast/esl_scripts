@@ -3,7 +3,7 @@
 // @namespace   ESL.Wasteful
 // @description Gold Request CSV Generator
 // @include     *://play.eslgaming.com/worldoftanks/europe/wot/*/admin_qrydatabase/showqry
-// @version     1.5
+// @version     1.50
 // @grant       none
 // ==/UserScript==
 
